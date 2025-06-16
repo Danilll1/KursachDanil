@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
 @if (!empty(session('cart')))
@@ -34,7 +35,11 @@
                 @endforeach
             </tbody>
         </table>
-        <!-- Блок с итогами в левом нижнем углу -->
+        <div class="modal-footerr">
+            <a href="{{ route('cart.checkout') }}" class="btn btn-secondary btn-cart Button__StyledButtonn">Оформить заказ</a>
+            <button type="button" onclick="clearCart('{{ route('cart.clear') }}')" class="btn btn-danger">Очистить корзину</button>
+        </div>
+
         <div class="cart-summary left-bottom-summary mt-4">
                 <div class="font-weight-bold">Итого: {{ session('cart_qty') }} яхт(ы)</div>
                 <div class="font-weight-bold">На сумму: @price_format(session('cart_total')) $</div>
@@ -87,7 +92,25 @@
     padding: 10px; 
     border-radius: 5px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    z-index: 1000; 
+    z-index: 1000;
+}
+
+.modal-footerr {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Button__StyledButtonn {
+    color: #fff !important;
+    background-color: #005154 !important;
+    border: none !important;
+}
+
+.Button__StyledButtonn:hover {
+    background-color: #00b2a1 !important; /* Цвет фона при наведении */
+    border: none !important;
+}
+
 }
 
 @media (max-width: 768px) {

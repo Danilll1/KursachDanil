@@ -106,8 +106,6 @@
                 </div>
         @endforeach
     </div>
-    
-        
     </div>
 </div>
 
@@ -115,6 +113,8 @@
 <div class="d-flex justify-content-center mt-4">
     {{ $products->links() }}
 </div>
+
+<a href="{{ route('admin.users.index') }}">Перейти к списку пользователей</a>
 
 <style>
     .card {

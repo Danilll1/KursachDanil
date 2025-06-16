@@ -1,6 +1,4 @@
-<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
-@extends('layouts.layout')
+@extends('layouts.auth')
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -161,3 +159,5 @@ input:not(:placeholder-shown) + .label {
 }
 
 </style>
+
+

@@ -98,7 +98,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
 {
     // Валидация входящих данных
-    dd($request->all());
+    // dd($request->all());
     $request->validate([
         'title' => 'required|string|max:255',
         'data_id' => 'required|numeric',
@@ -142,7 +142,7 @@ class ProductController extends Controller
     // Сохраняем изменения
     $product->save();
 
-    return redirect()->route('products.index')->with('success', 'Товар успешно обновлён!');
+    return redirect()->route('products.index', compact('product'))->with('success', 'Товар успешно обновлён!');
 }
 
     /**

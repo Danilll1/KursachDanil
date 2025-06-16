@@ -58,6 +58,7 @@
     </div>
 @endif
 
+
 <div class="container" style="padding-top: 120px; padding-bottom: 20px;">
     <p style="font-family: 'Tenor Sans', sans-serif; font-size: 48px; color: #005154;" class="p">Карточка новой яхты</p>
 

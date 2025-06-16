@@ -10,23 +10,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/register', [UserController::class, 'create'])->name('register.create');
 Route::post('/register', [UserController::class, 'store'])->name('register.store');
@@ -44,7 +27,7 @@ Route::post('/forgot-password', [UserController::class, 'forgotPasswordStore'])-
     })->name('password.reset');
 
 Route::post('reset-password', [UserController::class, 'resetPasswordUpdate'])->name('password.update');
-Route::get('/product/{slug}', [\App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/cart/del-item/{product_id}', [CartController::class, 'delItem'])->name('cart.del_item');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
@@ -67,6 +50,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/delete/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.destroy');
 });
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/1users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/1users/edit/{id}', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('/admin/users/update/{id}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.users.update');
+    Route::post('/admin/users/delete/{id}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+});
+
 Route::get('verify-email', function () {
     return view('user.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -76,12 +66,18 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect()->route('home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
+Route::group(['middleware' => 'auth'], function(){
+    //редактирование пользователя
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user', [UserController::class, 'update'])->name('user.update');
+});
+
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:3,1'])->name('verification.send');
 
-Route::get('/home', [\App\Http\Controllers\ProductController::class, 'index'])->name('home');
+Route::get('/home', [ProductController::class, 'index'])->name('home');
 
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -91,3 +87,5 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 
 // Определите маршрут для поиска товаров
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+
+Route::view('/onas', 'products.onas')->name('onas');

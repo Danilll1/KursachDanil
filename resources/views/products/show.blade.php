@@ -53,6 +53,167 @@
     </div>
 </div>
 
+@section('footer')
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <p style="font-family: 'Tenor Sans', sans-serif;">Компания Arcon Yachts предоставляет своим клиентам
+                    широкий спектр услуг в сфере яхтенной индустрии.</p>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <h5 style="font-size: 26px; font-family: 'Tenor Sans', sans-serif;">Контакты</h5>
+                <ul style="font-family: 'Tenor Sans', sans-serif;">
+                    <li>Email: info@example.com</li>
+                    <li>Телефон: +1 (234) 567-890</li>
+                    <li>Адрес: Улица, Город, Страна</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="social-links" style="list-style-type: none; padding: 0; text-align: right; font-family: 'Tenor Sans', sans-serif;">
+                    <li>
+                        <h5 style="font-size: 26px; font-family: 'Tenor Sans', sans-serif;">Социальные сети</h5>
+                    </li>
+                    <li style=""><a href="https://www.instagram.com/arconyachtsmonaco/"><i
+                                class="fab fa-instagram"></i> Instagram</a></li>
+                    <li style=""><a href="https://www.facebook.com/arconyachts/"><i
+                                class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li style=""><a href="https://www.linkedin.com/company/arcon-yachts/"><i
+                                class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center">
+            <p>&copy; {{ date('Y') }} Ваша Компания. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- для footer -->
+<style>
+    footer {
+        background-color: #005154;
+        /* Темный фон */
+        color: white;
+        /* Белый текст */
+        padding: 40px 0 20px 0;
+        /* Отступы сверху и снизу */
+    }
+
+    footer h5 {
+        font-size: 18px;
+        /* Размер заголовка */
+        margin-bottom: 20px;
+        /* Отступ снизу */
+    }
+
+    footer p {
+        margin-bottom: 10px;
+        /* Отступ между параграфами */
+    }
+
+    footer ul {
+        list-style-type: none;
+        /* Убираем маркеры списка */
+        padding: 0;
+        /* Убираем отступы */
+    }
+
+    footer a {
+        color: #3498DB;
+        /* Цвет ссылок */
+        text-decoration: none;
+        /* Убираем подчеркивание */
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+        /* Подчеркивание при наведении */
+    }
+
+    .social-links {
+        display: flex;
+        /* Используем флекс для горизонтального расположения */
+        gap: 15px;
+        /* Отступ между иконками */
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .social-links a {
+        color: #fff;
+        /* Цвет ссылок */
+        display: flex;
+        /* Используем флекс для выравнивания иконки и текста */
+        align-items: center;
+        /* Центрируем по вертикали */
+        transition: 0.4s;
+    }
+
+    .social-links a:hover {
+        color: #6a6f75;
+        text-decoration: none !important;
+    }
+
+    .social-links i {
+        margin-right: 8px;
+        /* Отступ справа от иконки */
+    }
+
+    .text-center {
+        margin-top: 20px;
+        /* Отступ сверху для текста в центре */
+    }
+
+    @media (max-width: 768px) {
+        footer .row {
+            flex-direction: column;
+            /* Вертикальное выравнивание на мобильных устройствах */
+            align-items: center;
+            /* Центрируем содержимое */
+            text-align: center;
+            /* Центрируем текст */
+        }
+
+        footer h5 {
+            font-size: 22px;
+            /* Уменьшаем размер заголовка на мобильных */
+        }
+
+        footer p,
+        footer ul li {
+            font-size: 16px;
+            /* Уменьшаем размер текста на мобильных */
+        }
+
+        .social-links {
+            align-items: center;
+            /* Центрируем социальные ссылки */
+            margin-top: 15px;
+            /* Отступ сверху для социальных ссылок */
+        }
+    }
+
+    @media (max-width: 480px) {
+        footer h5 {
+            font-size: 20px;
+            /* Дополнительное уменьшение для очень маленьких экранов */
+        }
+
+        footer p,
+        footer ul li {
+            font-size: 14px;
+            /* Еще меньше размер текста на маленьких экранах */
+        }
+
+        .social-links {
+            gap: 10px;
+            /* Уменьшаем отступ между иконками на маленьких экранах */
+        }
+    }
+</style>
+@endsection
+
 <style>
     .card-product {
     margin: 120px 100px 0 100px; 

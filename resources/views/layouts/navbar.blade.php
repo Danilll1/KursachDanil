@@ -16,9 +16,9 @@
             @endforeach
 
             <li>
-                <a class="nav-link" href="https://arconyachts.com/ru/about">О НАС</a>
+                <a class="nav-link" href="{{ route('onas') }}">О НАС</a>
             </li>
-
+            
             @auth
             @if(Auth::user()->is_admin === 1)
             <li>
@@ -31,15 +31,16 @@
 
     <div class="user-info">
         @if(Auth::check())
-            <h>{{ Auth::user()->name }}</h>
+            <a href="{{ route('user.edit', ['id' => Auth::user()->id]) }}"><h>{{ Auth::user()->name }}</h></a>
             @auth
             @if(Auth::check() || Auth::user()->is_admin == 1)
                 <button type="button" class="btn cart-button" onclick="getCart('{{ route('cart.show') }}')">
-                    Корзина <span class="badge badge-light mini-cart-qty">{{ session('cart_qty') ?? 0 }}</span>
+                    Корзина
+                    <span class="badge badge-light mini-cart-qty">{{ !empty(session('cart_qty')) ?? 0 }}</span>
                 </button>
             @endif
             @endauth
-            <a href="{{ route('logout') }}" class="btn btn-user">
+            <a href="{{ route('logout') }}" class="btn btn-user" style=" color: #212529;">
                 Выйти
             </a>
         @else
@@ -162,8 +163,9 @@
     text-align: right; /* Align text within user-info to the right */
     margin: 0; /*Remove default margins*/
 }
-.user-info h {
+.user-info a {
     color: #005154;
+    text-decoration: none;
 }
 .btn {
     font-size: 16px;

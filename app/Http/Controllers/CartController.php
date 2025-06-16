@@ -126,4 +126,43 @@ class CartController extends Controller
     {
         //
     }
+
+    public function showCart()
+{
+    $cart = Cart::content(); // Получение содержимого корзины
+    return view('cart.show', compact('cart'));
+}
+
+public function addToCart(Request $request)
+{
+    // Получаем текущую корзину из сессии или создаем новую
+    $cart = session('cart', []);
+    $productId = $request->input('product_id');
+
+    // Логика добавления товара в корзину
+    if (isset($cart[$productId])) {
+        $cart[$productId]['quantity']++;
+    } else {
+        // Здесь вам нужно будет получить информацию о товаре (например, из базы данных)
+        // Для примера, я просто использую статические данные
+        $cart[$productId] = [
+            'name' => 'Product Name', // Замените на получение имени продукта из базы данных
+            'price' => 100, // Замените на получение цены продукта из базы данных
+            'quantity' => 1,
+        ];
+    }
+
+    // Обновляем корзину в сессии
+    session(['cart' => $cart]);
+
+    // Обновляем общее количество товаров в корзине
+    session(['cart_qty' => array_sum(array_column($cart, 'quantity'))]);
+
+    // Возвращаем ответ (например, JSON) с обновленной корзиной и количеством товаров
+    return response()->json([
+        'cart' => view('partials.cart', ['cart' => $cart])->render(), // Если у вас есть шаблон для отображения корзины
+        'cart_qty' => session('cart_qty'),
+    ]);
+}
+
 }

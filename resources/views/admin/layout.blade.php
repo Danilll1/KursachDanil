@@ -31,12 +31,7 @@
             <div class="modal-body">
                 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a href="{{ route('cart.checkout') }}" class="btn btn-secondary btn-cart">Оформить заказ</a>
-
-                <button type="button" onclick="clearCart('{{ route('cart.clear') }}')" class="btn btn-secondary btn-cart">Очистить корзину</button>
-            </div>
+            
         </div>
     </div>
 </div>

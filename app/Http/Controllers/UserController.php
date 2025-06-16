@@ -71,17 +71,6 @@ class UserController extends Controller
     }
 
     public function forgotPasswordStore(Request $request) {
-        // $request->validate(['email' => 'required|email']);
-        // $status = Password::sendResetLink(
-        //     $request->only('email')
-        // );
-        // return $status === Password::RESET_LINK_SENT
-        //     ? back()->with(['success' => __($status)])
-        //     : back()->withErrors(['email' => __($status)]);
-
-        // Валидация входных данных
-
-        // Валидация входных данных
     $request->validate(['email' => 'required|email']);
 
     // Проверка существования пользователя с указанным email
@@ -133,5 +122,52 @@ class UserController extends Controller
     public function dashboard() {
         Auth::logout();
         return view('user.dashboard');
+    }
+
+    //Редактирование данных пользователем
+    
+    public function edit() {
+        $user = Auth::user();
+        return view('user.edit', compact('user'));
+    }
+    
+    public function update(Request $request, $id) {
+        // dd($request->all());
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'nullable|min:8', // Пароль может быть пустым
+            'name' => 'required|string|max:255',
+            // 'is_admin' => 'required|boolean',
+        ]);
+    
+        $user = User::findOrFail($id);
+        $user->email = $request->email;
+        $user->name = $request->name;
+        // $user->is_admin = $request->is_admin;
+    
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+    
+        $user->save();
+    
+        return redirect()->route('home', compact('user'))->with('success', 'Пользователь успешно обновлен!');
+    }
+
+    // public function index()
+    // {
+    //     // Получаем всех пользователей с пагинацией (параметр 10 - количество пользователей на странице)
+    //     $users = User::paginate(10);
+        
+    //     // Возвращаем представление с переданными пользователями
+    //     return view('admin.user.index', compact('users'));
+    // }
+
+    public function checkout()
+    {
+        $user = Auth::user(); // Получение текущего пользователя
+        // Обработайте ваши данные для оформления заказа, варианты, и т.д.
+
+        return view('cart.checkout', compact('user'));
     }
 }
