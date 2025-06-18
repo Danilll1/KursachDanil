@@ -91,3 +91,19 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 
 Route::view('/onas', 'products.onas')->name('onas');
+
+
+Route::get('/check-tables', function() {
+    try {
+        $tables = DB::select('SHOW TABLES');
+        $productsExists = Schema::hasTable('products');
+        
+        return [
+            'all_tables' => $tables,
+            'products_table_exists' => $productsExists,
+            'products_count' => $productsExists ? DB::table('products')->count() : 0
+        ];
+    } catch (\Exception $e) {
+        return ['error' => $e->getMessage()];
+    }
+});
