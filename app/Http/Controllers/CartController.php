@@ -14,10 +14,11 @@ class CartController extends Controller
      * Display a listing of the resource.
      */
 
-    public function add(Request $request) {
+    public function add(Request $request)
+    {
         $request->validate([
             'product_id' => 'required|integer',
-            'qty' =>'required|integer|max:2000|min:1'
+            'qty' => 'required|integer|max:2000|min:1'
         ]);
         $data = $request->all();
 
@@ -28,26 +29,30 @@ class CartController extends Controller
         return view('cart.cart-modal');
     }
 
-    public function delItem($product_id){
+    public function delItem($product_id)
+    {
         $cart = new Cart();
         $cart->delItem($product_id);
         return view('cart.cart-modal');
     }
 
-    public function delItem2($product_id){
+    public function delItem2($product_id)
+    {
         $cart = new Cart();
         $cart->delItem2($product_id);
         return view('cart.cart-modal');
     }
 
-    public function clear() {
+    public function clear()
+    {
         session()->forget('cart');
         session()->forget('cart_qty');
         session()->forget('cart_total');
         return view('cart.cart-modal');
     }
 
-    public function checkout(Request $request) {
+    public function checkout(Request $request)
+    {
         if ($request->method() == 'POST') {
             $request->validate([
                 'name' => 'required',
@@ -59,7 +64,7 @@ class CartController extends Controller
 
             DB::transaction(function () use ($data) {
                 $order_data = array_merge([
-                    'qty' =>session('cart_qty'),
+                    'qty' => session('cart_qty'),
                     'total' => session('cart_total'),
                 ], $data);
                 $order = Order::create($order_data);
@@ -128,41 +133,41 @@ class CartController extends Controller
     }
 
     public function showCart()
-{
-    $cart = Cart::content(); // Получение содержимого корзины
-    return view('cart.show', compact('cart'));
-}
-
-public function addToCart(Request $request)
-{
-    // Получаем текущую корзину из сессии или создаем новую
-    $cart = session('cart', []);
-    $productId = $request->input('product_id');
-
-    // Логика добавления товара в корзину
-    if (isset($cart[$productId])) {
-        $cart[$productId]['quantity']++;
-    } else {
-        // Здесь вам нужно будет получить информацию о товаре (например, из базы данных)
-        // Для примера, я просто использую статические данные
-        $cart[$productId] = [
-            'name' => 'Product Name', // Замените на получение имени продукта из базы данных
-            'price' => 100, // Замените на получение цены продукта из базы данных
-            'quantity' => 1,
-        ];
+    {
+        $cart = Cart::content(); // Получение содержимого корзины
+        return view('cart.show', compact('cart'));
     }
 
-    // Обновляем корзину в сессии
-    session(['cart' => $cart]);
+    public function addToCart(Request $request)
+    {
+        // Получаем текущую корзину из сессии или создаем новую
+        $cart = session('cart', []);
+        $productId = $request->input('product_id');
 
-    // Обновляем общее количество товаров в корзине
-    session(['cart_qty' => array_sum(array_column($cart, 'quantity'))]);
+        // Логика добавления товара в корзину
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity']++;
+        } else {
+            // Здесь вам нужно будет получить информацию о товаре (например, из базы данных)
+            // Для примера, я просто использую статические данные
+            $cart[$productId] = [
+                'name' => 'Product Name', // Замените на получение имени продукта из базы данных
+                'price' => 100, // Замените на получение цены продукта из базы данных
+                'quantity' => 1,
+            ];
+        }
 
-    // Возвращаем ответ (например, JSON) с обновленной корзиной и количеством товаров
-    return response()->json([
-        'cart' => view('partials.cart', ['cart' => $cart])->render(), // Если у вас есть шаблон для отображения корзины
-        'cart_qty' => session('cart_qty'),
-    ]);
-}
+        // Обновляем корзину в сессии
+        session(['cart' => $cart]);
+
+        // Обновляем общее количество товаров в корзине
+        session(['cart_qty' => array_sum(array_column($cart, 'quantity'))]);
+
+        // Возвращаем ответ (например, JSON) с обновленной корзиной и количеством товаров
+        return response()->json([
+            'cart' => view('partials.cart', ['cart' => $cart])->render(), // Если у вас есть шаблон для отображения корзины
+            'cart_qty' => session('cart_qty'),
+        ]);
+    }
 
 }

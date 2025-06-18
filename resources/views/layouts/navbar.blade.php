@@ -33,10 +33,10 @@
         @if(Auth::check())
             <a href="{{ route('user.edit', ['id' => Auth::user()->id]) }}"><h>{{ Auth::user()->name }}</h></a>
             @auth
-            @if(Auth::check() || Auth::user()->is_admin == 1)
+            @if(Auth::check())
                 <button type="button" class="btn cart-button" onclick="getCart('{{ route('cart.show') }}')">
                     Корзина
-                    <span class="badge badge-light mini-cart-qty">{{ !empty(session('cart_qty')) ?? 0 }}</span>
+                    <!-- <span class="badge badge-light mini-cart-qty">{{ session('cart_qty', 0) }}</span> -->
                 </button>
             @endif
             @endauth

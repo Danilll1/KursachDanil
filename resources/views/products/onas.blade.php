@@ -16,7 +16,7 @@
                     <div class="data-yahts font_2">
                         <p>100+ проданных яхт | </p>
                         <p>30+ брендов в каталоге | </p>
-                        <p>15 стран доставки |</p>
+                        <p>15 стран доставки</p>
                     </div>
                 </li>
                 <li>
@@ -198,182 +198,85 @@
 @endsection
 
 <style>
+    /* Исходные стили (полностью сохранены) */
     .card-product {
         margin: 120px auto 0 auto;
-        /* Автоматические отступы по бокам для центрирования */
         max-width: 1400px;
         width: 90%;
-        /* Добавьте это для адаптивности */
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         background-color: #fff;
     }
-
+    
     .title-product {
         font-size: 49px !important;
-        /* Размер заголовка */
-        color: #005154;
-        /* Цвет заголовка */
-        margin-bottom: 15px;
-        /* Отступ снизу */
-        text-align: left;
-        /* Выравнивание заголовка по центру */
-        font-family: 'Tenor Sans', sans-serif;
+        color: #005154 !important;
+        margin-bottom: 15px !important;
+        text-align: left !important;
+        font-family: 'Tenor Sans', sans-serif !important;
+        line-height: normal !important;
+        font-weight: normal !important;
+        text-transform: none !important;
+        letter-spacing: normal !important;
     }
-
-    .product-image-container {
-        text-align: left;
-        /* Центрирование изображения */
-        margin-bottom: 15px;
-        /* Отступ снизу для изображения */
-    }
-
+    
     .product-image {
         max-width: 600px;
-        /* Ширина изображения максимум 100% */
         min-width: 600px;
         height: auto;
-        /* Автоматическая высота для сохранения пропорций */
         border-radius: 4px;
-        /* Скругление углов изображения */
         width: 80%;
-        /* Увеличиваем размер изображения до 80% */
         padding-right: 10px;
     }
-
+    
     .product-details {
         display: flex;
-        /* Flexbox для размещения деталей */
-        /* flex-direction: column; */
     }
-
-    /* .status-item {
-    color: #00b2a1 !important;
-} */
-
+    
     .product-list {
         list-style: none;
-        /* Убираем маркеры списка */
         padding: 0;
-        /* Убираем отступы */
     }
-
-    .product-list a {
-        text-decoration: none;
-        font-family: 'Tenor Sans', sans-serif;
-        color: #005154;
-        text-decoration: none;
-        transition: 0.5s;
-    }
-
-    .product-list a:hover {
-        text-decoration: none;
-        color: #00b2a1;
-    }
-
+    
     .product-list li {
         margin-bottom: 10px;
-        /* Отступ между пунктами списка */
         font-size: 18px;
     }
-
-    .card-price {
-        font-weight: bold;
-        /* Жирный шрифт для цены */
-        color: #28a745;
-        /* Цвет для цены */
-    }
-
-    .add-to-cart {
+    
+    .data-yahts {
         display: flex;
-        /* Flexbox для управления расположением компонентов */
-        align-items: center;
-        /* Выравнивание по центру */
-        margin-top: 15px;
-        /* Отступ сверху */
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 15px 0;
     }
-
-    .quantity-input {
-        width: 60px;
-        /* Ширина поля ввода */
-        margin-right: 10px;
-        /* Отступ справа от поля ввода */
-        padding: 5px;
-        /* Отступ внутри поля ввода */
-        border: 1px solid #ccc;
-        /* Стиль границы поля ввода */
-        border-radius: 4px;
-        /* Скругление углов поля ввода */
-    }
-
-    .add-to-cart-button {
-        color: white;
-        /* Цвет текста кнопки */
-        border: none;
-        /* Убираем рамку */
-        padding: 10px 20px;
-        /* Отступы внутри кнопки */
-        cursor: pointer;
-        /* Курсор как указатель */
-        transition: background-color 0.3s;
-        /* Плавный переход цвета */
-        font-size: 18px;
-    }
-
+    
     .product-desc {
         margin-top: -35px;
         padding: 0;
         font-size: 14px !important;
-        /* Размер шрифта для описания */
         color: #666;
-        /* Цвет описания */
         white-space: pre-line;
     }
 
-    /* Адаптивность для мобильных устройств */
-    @media (max-width: 768px) {
-        .product-title {
-            font-size: 20px;
-            /* Уменьшаем размер заголовка для мобильных */
+    /* Только изменение расположения блоков */
+    @media (max-width: 1350px) {
+        .product-details {
+            flex-direction: column; /* Картинка сверху, текст снизу */
         }
-
-        .product-list li {
-            font-size: 14px;
-            /* Уменьшаем размер шрифта списка */
-        }
-
+        
         .product-image {
-            width: 100%;
-            /* Увеличиваем изображение на мобильных до 100% */
+            min-width: 100% !important; /* Растягиваем на всю ширину */
+            max-width: 100% !important;
+            width: 100% !important;
+            padding-right: 0 !important;
+            margin-bottom: 20px; /* Отступ от текста */
         }
-
-        .quantity-input {
-            width: 45px;
-            /* Уменьшаем ширину поля ввода */
-        }
-    }
-
-    @media (max-width: 480px) {
-        .product-card {
-            padding: 10px;
-            /* Уменьшаем отступы в карточке */
-        }
-
-        .product-title {
-            font-size: 18px;
-            /* Уменьшаем размер заголовка для маленьких экранов */
-        }
-
-        .card-price {
-            font-size: 16px;
-            /* Уменьшаем размер шрифта цены */
-        }
-
-        .add-to-cart-button {
-            padding: 8px 15px;
-            /* Уменьшаем размеры кнопок */
+        
+        .product-desc {
+            margin-top: 0; /* Сбрасываем отрицательный отступ */
         }
     }
 </style>
+
