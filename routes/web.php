@@ -79,6 +79,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/home', [ProductController::class, 'index'])->name('home');
 
+Route::redirect('/', '/home');
+
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
